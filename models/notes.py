@@ -13,7 +13,7 @@ def create_notes_table():
     cur.execute("""
     CREATE TABLE IF NOT EXISTS notes(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
+    title TEXT NOT NULL,
     content TEXT NOT NULL
     )
     """)
@@ -23,20 +23,20 @@ def create_notes_table():
 
 def load_notes():
     conn, cur = database_connection()
-    cur.execute("""SELECT * FROM notes""")
-    catalog = [item.dict() for item in cur.fetchall()]
+    cur.execute("SELECT * FROM notes")
+    catalog = [dict(row) for row in cur.fetchall()]
 
     conn.close()
     return catalog
 
 
 
-def create_note(name, content):
+def create_note(title, content):
     conn, cur = database_connection()
 
     cur.execute("""
-    INSERT INTO notes(name, content) VALUES(?,?)
-    """, (name, content))
+    INSERT INTO notes(title, content) VALUES(?,?)
+    """, (title, content))
 
     conn.commit()
     conn.close()

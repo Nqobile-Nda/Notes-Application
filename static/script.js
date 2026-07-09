@@ -7,17 +7,17 @@ document.addEventListener("DOMContentLoaded", async() => {
 
     async function loadNotes() {
         const response = await fetch("/load_notes")
-        const notes = await response.json()
-        return notes
+        const notes = await response.json();
+        return notes;
     }
 
 
     async function renderNotes() {
-        const notes = await loadNotes()
+        const notes = await loadNotes();
         notesArea.innerHTML = notes.map(note => {
-            `<p>${note.title}</p>
-            <p>${note.content}</p>`
-        })
+            return `<h4>${note.title}</h4>
+            <p>${note.content}</p>`;
+        }).join('');
     }
 
 
@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", async() => {
                 notificationBar.textContent = result.error || "Failed to submit note.";
             } else {
                 notificationBar.textContent = result.success;
+                await renderNotes();
             }
         } 
         
@@ -54,4 +55,6 @@ document.addEventListener("DOMContentLoaded", async() => {
         addNote();
         myForm.reset();
     })
+
+    renderNotes();
 });

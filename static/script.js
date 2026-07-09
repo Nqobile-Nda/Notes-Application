@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async() => {
 
     const notificationBar = document.getElementById("notification-bar");
     const myForm = document.getElementById("myForm");
-    const notesArea = document.getElementById("notesArea");
+    const notesDisplay = document.getElementById("notesDisplay");
 
 
     async function loadNotes() {
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async() => {
 
     async function renderNotes() {
         const notes = await loadNotes();
-        notesArea.innerHTML = notes.map(note => {
+        notesDisplay.innerHTML = notes.map(note => {
             return `<h4>${note.title}</h4>
             <p>${note.content}</p>`;
         }).join('');

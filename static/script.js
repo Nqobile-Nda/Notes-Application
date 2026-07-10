@@ -39,7 +39,9 @@ document.addEventListener("DOMContentLoaded", async() => {
             const result = await response.json();
             if (!response.ok) {
                 notificationBar.textContent = result.error || "Failed to submit note.";
-            } else {
+            } 
+            
+            else {
                 notificationBar.textContent = result.success;
                 await renderNotes();
             }

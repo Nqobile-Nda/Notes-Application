@@ -14,7 +14,9 @@ def create_notes_table():
     CREATE TABLE IF NOT EXISTS notes(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL,
-    content TEXT NOT NULL
+    content TEXT NOT NULL,
+    time_created TEXT NOT NULL,
+    time_edited NOT NULL
     )
     """)
 
@@ -31,12 +33,12 @@ def load_notes():
 
 
 
-def create_note(title, content):
+def create_note(title, content, time_created, time_edited):
     conn, cur = database_connection()
 
     cur.execute("""
-    INSERT INTO notes(title, content) VALUES(?,?)
-    """, (title, content))
+    INSERT INTO notes(title, content, time_created, time_edited) VALUES(?,?,?,?)
+    """, (title, content, time_created, time_edited))
 
     conn.commit()
     conn.close()

@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+import time
 from models.notes import create_notes_table, load_notes, create_note
 
 create_notes_table()
@@ -26,9 +27,11 @@ def form_route():
 
     title = data.get("title")
     content = data.get("content")
+    time_created = time.strftime("%Y/%m/%d %H:%M:%S")
+    time_edited = "No changes made."
 
     if title and content:
-        create_note(title, content)
+        create_note(title, content, time_created, time_edited)
         return jsonify({"success":"Note successfully added."}), 200
     
     return jsonify({"error":"Please fill in all the fields!"}), 400

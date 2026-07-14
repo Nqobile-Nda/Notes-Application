@@ -42,3 +42,14 @@ def create_note(title, content, time_created, time_edited):
 
     conn.commit()
     conn.close()
+
+
+def edit_notes(title, content, time_edited, note_id):
+    conn, cur = database_connection()
+
+    cur.execute("""
+    UPDATE notes SET title=?, content=?, time_edited=? WHERE id=?
+    """, (title, content, time_edited, note_id))
+
+    conn.commit()
+    conn.close()

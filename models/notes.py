@@ -53,3 +53,14 @@ def edit_notes(title, content, time_edited, note_id):
 
     conn.commit()
     conn.close()
+
+
+def delete_note(note_id):
+    conn, cur = database_connection()
+
+    cur.execute("""
+    DELETE FROM notes WHERE id=?
+    """, (note_id,))
+
+    conn.commit()
+    conn.close()
